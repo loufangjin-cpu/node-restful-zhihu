@@ -2,8 +2,16 @@ const Koa = require('koa')
 const bodyparser = require('koa-bodyparser')
 const error = require('koa-json-error')
 const parameter = require('koa-parameter')
+const mongoose = require('mongoose')
 const app = new Koa()
 const routesMethod = require('./routes')
+const {connectStr} = require('./config')
+//
+mongoose.connect(connectStr, () => {
+    console.log('mongoDB 数据库连接成功')
+})
+mongoose.connection.on('error', console.error)
+
 // 错误处理, 优化错误处理, 生产环境不返回stack，开发环境返回stack, 避免stack 泄漏文件信息
 app.use(error({
     postFormat:(e, {stack, ...rest}) => process.env.NODE_ENV === 'PRO' ? rest : {

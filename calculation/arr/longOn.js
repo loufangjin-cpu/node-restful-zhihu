@@ -32,26 +32,32 @@ function findNode (dp, i, result, arr) {
 // 用一个尾数组tail存放遍历过的原数组的位置关系，是一个递增关系。
 // 1、循环原数组, 尾数组tail的最后一位小于原数组当前值，直接把当前原数组push到tail中
 // 2、二分尾数组tail,找到原数组[i]的位置: left , right , middle
+// 一分为二，中间值和原数组值对比，中间值 < 原数组值: left = middle + 1, 否则 right = middle
 function lengthOfLIS(nums) {
-    if(!nums?.length) return
-    let tail = [nums[0]]
-    for(let i = 0; i < nums.length; i++) {
-        if(tail[tail.length - 1] < nums[i]) {
-            tail.push(nums[i])
+    let n = nums.length;
+    if (n <= 1) {
+        return n;
+    }
+    let tail = [nums[0]];//存放最长上升子序列数组
+    for (let i = 0; i < n; i++) {
+        //当nums中的元素比tail中的最后一个大时 可以放心push进tail
+        if (nums[i] > tail[tail.length - 1]) {
+            tail.push(nums[i]);
         } else {
-            let left = 0
-            let right = tail.length - 1
-            while(left < right) {
-                let mid = (left + right) >> 1
-                if(tail[left] < nums[i]) {
-                    left = mid + 1
+            //否则进行二分查找
+            let left = 0;
+            let right = tail.length - 1;
+            while (left < right) {
+                let mid = (left + right) >> 1;
+                if (tail[mid] < nums[i]) {
+                    left = mid + 1;
                 } else {
-                    right = mid
+                    right = mid;
                 }
             }
-            tail[left] = nums[i]
+            tail[left] = nums[i];//将nums[i]放置到合适的位置，此时前面的元素都比nums[i]小
         }
     }
-    return tail.length
+    return tail.length;
 }
 console.log(lengthOfLIS([1, 4, 3,5,8,7]))

@@ -115,5 +115,23 @@ var maxProfit = function(prices) {
 //     // 若有解，直接返回解的内容
 //     return f[amount];
 //   }
-  
 //   console.log(findCoins([1, 2, 5], 11)); // 3
+
+// !螺旋矩阵等待后续梳理
+// const rows = matrix.length, columns = matrix[0].length;
+// const tar = row * columns
+// let t = 0, b = rows - 1, l = 0, r = columns - 1
+// let cur = 1
+// const mat = new Array(rows).fill(0).map(()=>new Array(columns).fill(0))
+
+// while(num <= tar){
+//     for(let i = l; i <= r; i++) mat[t][i] = num++; // left to right.
+//     t++;
+//     for(let i = t; i <= b; i++) mat[i][r] = num++; // top to bottom.
+//     r--;
+//     for(let i = r; i >= l; i--) mat[b][i] = num++; // right to left.
+//     b--;
+//     for(let i = b; i >= t; i--) mat[i][l] = num++; // bottom to top.
+//     l++;
+// }
+// return mat;
